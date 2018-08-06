@@ -48,11 +48,13 @@ RUN pip3 install -e .
 WORKDIR /
 
 ADD https://api.github.com/repos/nnikka/neo-python/git/refs/heads/master version.json
-RUN git clone https://github.com/nnikka/neo-python /neo-python-test
+RUN git clone https://github.com/nnikka/neo-python /neo-python-tests
 
-RUN mv /neo-python-test/neo /neo-python/neo
+RUN mv /neo-python-tests/neo /neo-python/neo
 
 WORKDIR /neo-python
+
+RUN pip3 install -e .
 
 # RUN git checkout development
 
