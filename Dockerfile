@@ -40,26 +40,13 @@ RUN apt-get update && apt-get install -y dotnet-sdk-2.1.4
 RUN rm -rf /var/lib/apt/lists/*
 
 # neo-python setup: clonse and install dependencies
-ADD https://api.github.com/repos/nnikka/neo-python/git/refs/heads/master version.json
-RUN git clone https://github.com/nnikka/neo-python.git /neo-python
 WORKDIR /neo-python
-# RUN git checkout development
+RUN git clone https://github.com/nnikka/neo-python /neo-python
 RUN pip3 install -e .
+ADD https://api.github.com/repos/nnikka/neo-python/git/refs/heads/master version.json
+RUN git pull https://github.com/nnikka/neo-python
 
-# WORKDIR /
 
-# ADD https://api.github.com/repos/nnikka/neo-python/git/refs/heads/master version.json
-# RUN git clone https://github.com/nnikka/neo-python /neo-python-tests
-
-# RUN mv /neo-python-tests/neo /neo-python/neo
-
-# WORKDIR /neo-python
-
-# RUN pip3 install -e .
-
-# RUN git checkout development
-
-# Add the neo-cli package
 ADD ./neo-cli.zip /opt/neo-cli.zip
 
 # Extract and prepare four consensus nodes
@@ -98,7 +85,7 @@ RUN echo "alias neopy=\"cd /neo-python && np-prompt -p\"" >> /root/.bashrc
 RUN echo "printf \"\n* Consensus nodes are running in screen sessions, check 'screen -ls'\"" >> /root/.bashrc
 RUN echo "printf \"\n* neo-python is installed in /neo-python, with a neo-privnet.wallet file in place\"" >> /root/.bashrc
 RUN echo "printf \"\n* You can use the alias 'neopy' in the shell to start neo-python's prompt.py with privnet settings\"" >> /root/.bashrc
-RUN echo "printf \"\n* Please report issues to https://github.com/nnikka/neo-privatenet-docker\n\n\"" >> /root/.bashrc
+RUN echo "printf \"\n* Please report issues to https://github.com/CityOfZion/neo-privatenet-docker\n\n\"" >> /root/.bashrc
 
 # Inform Docker what ports to expose
 EXPOSE 20333
