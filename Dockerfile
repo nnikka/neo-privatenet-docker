@@ -40,12 +40,19 @@ RUN apt-get update && apt-get install -y dotnet-sdk-2.1.4
 RUN rm -rf /var/lib/apt/lists/*
 
 # neo-python setup: clonse and install dependencies
-ADD https://api.github.com/repos/nnikka/neo-python/git/refs/heads/master version.json
-RUN git clone https://github.com/nnikka/neo-python /neo-python
-
+RUN git clone https://github.com/nnikka/neo-python.git /neo-python
 WORKDIR /neo-python
 # RUN git checkout development
 RUN pip3 install -e .
+
+WORKDIR /
+
+ADD https://api.github.com/repos/nnikka/neo-python/git/refs/heads/master version.json
+RUN git clone https://github.com/nnikka/neo-python /neo-python-test
+
+RUN mv /neo-python-test/neo /neo-python/neo
+
+# RUN git checkout development
 
 # Add the neo-cli package
 ADD ./neo-cli.zip /opt/neo-cli.zip
