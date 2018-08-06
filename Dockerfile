@@ -52,6 +52,8 @@ RUN git clone https://github.com/nnikka/neo-python /neo-python-test
 
 RUN mv /neo-python-test/neo /neo-python/neo
 
+WORKDIR /neo-python
+
 # RUN git checkout development
 
 # Add the neo-cli package
